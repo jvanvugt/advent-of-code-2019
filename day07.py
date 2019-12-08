@@ -60,7 +60,7 @@ def run_intcode(ops):
 def run_amps(program, phase_setting):
     input_value = 0
     for phase in phase_setting:
-        amp = run_intcode(program)
+        amp = run_intcode(program[:])
         amp.send(None)
         amp.send(phase)
         input_value = amp.send(input_value)
