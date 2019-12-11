@@ -26,8 +26,7 @@ class PositiveDefaultDict(defaultdict):
 
 def run_intcode(program):
     ops = PositiveDefaultDict(int)
-    for i, v in enumerate(program):
-        ops[i] = v
+    ops.update(enumerate(program))
     ip = 0
     base = 0
     while ip < len(ops):
