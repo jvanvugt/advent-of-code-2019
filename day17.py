@@ -1,6 +1,7 @@
 from intcode import Computer
 from io import StringIO
 from collections import defaultdict
+from utils import neighbours
 
 
 class AComputer(Computer):
@@ -13,14 +14,6 @@ class AComputer(Computer):
 
     def get_input(self):
         raise NotImplementedError()
-
-
-def neighbours(pos):
-    y, x = pos
-    yield y - 1, x
-    yield y, x + 1
-    yield y + 1, x
-    yield y, x - 1
 
 
 def a(program):
