@@ -6,6 +6,8 @@ class Computer(metaclass=ABCMeta):
     def __init__(self, program):
         self.memory = PositiveDefaultDict(int)
         self.memory.update(enumerate(program))
+        self.ip = 0
+        self.base = 0
 
     @abstractmethod
     def get_input(self) -> int:
@@ -15,11 +17,11 @@ class Computer(metaclass=ABCMeta):
     def process_output(self, value: int) -> None:
         ...
 
-    def run(self):
+    def run(self, steps=int(1e12)):
+        ip = self.ip
         ops = self.memory
-        ip = 0
-        base = 0
-        while ip < len(ops):
+        base = self.base
+        for _ in range(steps):
             op, modes = parse_op(ops[ip])
             if op == 1:  # add
                 i = ops[ip + 3] + int(modes[2] == "2") * base
@@ -70,6 +72,8 @@ class Computer(metaclass=ABCMeta):
                 break
             else:
                 raise ValueError(op)
+        self.ip = ip
+        self.base = base
 
 
 def parse_op(op):
